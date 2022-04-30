@@ -14,28 +14,39 @@ const bookTitleInput = document.querySelector('#book-title');
 const bookAuthorInput = document.querySelector('#book-author');
 const bookPagesInput = document.querySelector('#book-pages');
 const bookReadInput = document.querySelector('#book-read');
+const bookPagesReadInput = document.querySelector('#book-pages-read');
 
 
 // create book objects
-function Book (title, author, pages, read) {
+function Book (title, author, pages, pagesRead, read) {
     this.title = title
     this.author = author
     this.pages = pages
+    this.pagesRead = pagesRead
     this.read = read.checked
+};
+
+Book.prototype.toggleRead = function () {
+    if (this.read) {
+        this.read = false;
+    } else {
+        this.read = true;
+        this.pagesRead = 0;
+    };
 };
 
 // add object to library and call display function
 function addBook(book) {
     myLibrary.push(book);
     clearBooks();
-    displayBooks(myLibrary);
+    displayBooks();
 }
 
 function deleteBook() {
     const libraryPosition = parseInt(this.parentNode.dataset.indexNumber);
     myLibrary. splice(libraryPosition, 1);
     clearBooks();
-    displayBooks(myLibrary);
+    displayBooks();
 }
 
 function editBook() {
@@ -44,11 +55,12 @@ function editBook() {
     bookTitleInput.value = currentBook.title;
     bookAuthorInput.value = currentBook.author;
     bookPagesInput.value = currentBook.pages;
+    bookPagesReadInput.value = currentBook.pagesRead;
     currentBook.read ? bookReadInput.checked = true : bookReadInput.checked = false;
     switchButtons();
     openForm();
-    
 }
+
 function switchButtons() {
     submitBookButton.style.display = 'none'
     updateBookButton.style.display = 'block';
@@ -56,15 +68,30 @@ function switchButtons() {
 }
 
 function submitEdit() {
+    console.log(`Book title before edit: ${currentBook.title}, input before edit: ${bookTitleInput.value}`);
     currentBook.title = bookTitleInput.value;
+    console.log(`Book title AFTER edit: ${currentBook.title}`);
     currentBook.author = bookAuthorInput.value;
     currentBook.pages = bookPagesInput.value;
+    currentBook.pagesRead = bookPagesReadInput.value;
     currentBook.read = bookReadInput.checked;
+    console.log(currentBook);
     submitBookButton.style.display = 'block';
     updateBookButton.style.display = 'none';
     closeForm();
-
+    clearBooks();
+    displayBooks();
 }
+
+function toggleReadStatus() {
+    const libraryPosition = parseInt(this.parentNode.dataset.indexNumber);
+    currentBook = myLibrary[libraryPosition];
+    currentBook.toggleRead();
+    console.log();
+    clearBooks();
+    displayBooks();
+}
+
 // create a stylized 'add new book' button on grid at the end of all the books
 function displayAddItems() {
     const addBookButton = document.createElement('div');
@@ -73,8 +100,8 @@ function displayAddItems() {
     addBookButton.addEventListener('click', openForm);
 } 
 
-function displayBooks (array) {
-    array.forEach((book, i) => {
+function displayBooks () {
+    myLibrary.forEach((book, i) => {
         createBookCard(book, i);
     });
     displayAddItems();
@@ -107,9 +134,13 @@ function createBookCard(book, i) {
         
         const newBookPages = document.createElement('div');
         newBookPages.textContent = `${book.pages} pages`;
+
+        const newBookPagesRead = document.createElement('div')
+        if (book.pagesRead) newBookPagesRead.textContent = `You've read ${book.pagesRead} pages`;
         
         const newBookRead = document.createElement('div');
         newBookRead.classList.add('read-button');
+        newBookRead.addEventListener('click', toggleReadStatus);
         if (book.read) {
             newBookRead.textContent = 'Already Read';
             newBookRead.classList.add('read');
@@ -132,7 +163,7 @@ function createBookCard(book, i) {
 
         buttons.append(editButton, deleteButton);
         
-        newBook.append(newBookTitle, newBookAuthor, newBookPages, newBookRead, buttons);
+        newBook.append(newBookTitle, newBookAuthor, newBookPages, newBookPagesRead, newBookRead, buttons);
         bookList.appendChild(newBook);
     };
 }
@@ -149,14 +180,16 @@ function closeForm() {
     document.querySelector('.container-cover').style.display = 'none';
     submitBookButton.style.display = 'block'
     updateBookButton.style.display = 'none';
-}
-
-function submitBook() {
-    const newBook = new Book(bookTitleInput.value, bookAuthorInput.value, bookPagesInput.value, bookReadInput);
     bookTitleInput.value = null;
     bookAuthorInput.value = null;
     bookPagesInput.value = null;
+    bookPagesReadInput.value = null;
     bookReadInput.checked = false;
+}
+
+function submitBook() {
+    const newBook = new Book(bookTitleInput.value, bookAuthorInput.value, bookPagesInput.value, bookPagesReadInput.value, bookReadInput);
+   
     closeForm();
     addBook(newBook);
 }
