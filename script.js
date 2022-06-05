@@ -9,6 +9,8 @@ const submitBookButton = document.querySelector('.submit-book');
 const cancelBookButton = document.querySelector('.cancel-book');
 const updateBookButton = document.querySelector('.update-book');
 const clearButton = document.querySelector('.clear-button');
+const confirmDeleteButton = document.querySelector('.confirm-delete')
+const confirmCancelButton = document.querySelector('.cancel-delete');
 
 const bookTitleInput = document.querySelector('#book-title');
 const bookAuthorInput = document.querySelector('#book-author');
@@ -17,7 +19,7 @@ const bookReadInput = document.querySelector('#book-read');
 const bookPagesReadInput = document.querySelector('#book-pages-read');
 
 
-// create book objects
+// book constructer
 function Book (title, author, pages, pagesRead, read) {
     this.title = title
     this.author = author
@@ -174,10 +176,22 @@ function openForm() {
   document.querySelector('.container-cover').style.display = 'block';
 }
 
+function openConfirm() {
+    document.querySelector('.confirm-form').style.display = 'block';
+    document.querySelector('.container-cover').style.display = 'block';
+}
+
+function closeConfirm() {
+    document.querySelector('.confirm-form').style.display = 'none';
+    document.querySelector('.container-cover').style.display = 'none';
+
+}
+
 // close pop-up to input book data
 function closeForm() {
     document.querySelector('.book-form').style.display = 'none';
     document.querySelector('.container-cover').style.display = 'none';
+    //submitBook is 'turned on',update is 'turned off, and fields are cleared for the next time form is opened
     submitBookButton.style.display = 'block'
     updateBookButton.style.display = 'none';
     bookTitleInput.value = null;
@@ -186,6 +200,8 @@ function closeForm() {
     bookPagesReadInput.value = null;
     bookReadInput.checked = false;
 }
+
+
 
 function submitBook() {
     const newBook = new Book(bookTitleInput.value, bookAuthorInput.value, bookPagesInput.value, bookPagesReadInput.value, bookReadInput);
@@ -200,8 +216,11 @@ submitBookButton.addEventListener('click', submitBook);
 
 cancelBookButton.addEventListener('click', closeForm);
 
+clearButton.addEventListener('click', openConfirm);
 
-clearButton.addEventListener('click', clearAll);
+confirmDeleteButton.addEventListener('click', function() {closeConfirm(); clearAll();});
+
+confirmCancelButton.addEventListener('click', closeConfirm);
 
 
 /* temporary button to clear the visual book list

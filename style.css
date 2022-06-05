@@ -153,7 +153,7 @@ li a:hover {
     background-repeat: no-repeat;
     color: black;
     width: 16rem;
-    height: 16rem;
+    height: 18rem;
     border:10px dashed black;
     border-radius: 2rem;
     display: flex;
@@ -188,7 +188,7 @@ li a:hover {
 }
 
 .book-card {
-    height: 15rem;
+    height: 17rem;
     width: 14rem;
     padding: 1rem;
     background-color: rgb(240, 160, 104);
@@ -202,6 +202,7 @@ li a:hover {
 .book-card > div {
     text-align: center;
     padding: 0.5rem;
+    height: 1.5rem;
 }
 
 .book-card > div:first-child {
@@ -210,13 +211,17 @@ li a:hover {
 }
 .book-card .read-button {
     width: 10rem;
-    height: 1.5rem;
+    height: 1.2rem;
     color: rgb(235, 215, 151);
     font-weight: 700;
     text-align: center;
     border-radius: 10px;
+    box-shadow: 2px 2px 5px 0px rgb(92, 91, 91);
     position: relative;
-
+    transition-duration: 0.2s
+}
+.book-card .read-button:hover {
+    transform: scale(1.05);
 }
 .book-card .read-button:hover::after {
     content: 'click to toggle read status';
@@ -233,16 +238,17 @@ li a:hover {
     border-radius: 10px;
 }
 .book-card .read{
-    background-color: green;
+    background-color: rgb(77, 153, 77);
 }
 .book-card .not-read {
-    background-color: red;
+    background-color: rgb(197, 79, 79);
 }
+
 .book-card button {
     background-color: rgb(248, 73, 73);
     height: 2rem;
     width: 5rem;
-    margin: 30px 8px 0px 8px;
+    margin: 10px 8px 0px 8px;
     color: white;
     font-weight: 700;
     border: none;
@@ -316,4 +322,18 @@ li a:hover {
 .update-book {
     background-color: green;
     display: none;
+}
+.confirm-form {
+    display: none;
+    background-color: rgb(219, 216, 216);
+    border: 0.5rem solid rgb(97, 96, 96);
+    border-radius: 2rem;
+    padding: 1rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    height: 10rem;
+    width: 20rem;
 }

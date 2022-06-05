@@ -16,7 +16,7 @@
                 <ul class="nav-list">
                     <li class="logo"><h1>Joseph Knibb</h1><p>High School Library</p></li>
                     <li class="quote">Reading... is... goooood</li>
-                    <li><a href=""><h1>Login</h1></a></li>
+                    <li><a><h1>Login</h1></a></li>
                 </ul>
             </nav>
         </div>
@@ -33,23 +33,23 @@
             <div>Fill out the form below</div>
             <div>
                 <label for="book-title"></label>
-                <input type="text" id="book-title" name="book_title" placeholder="Title of book">
+                <input type="text" id="book-title" name="book_title" placeholder="Title of book" autocomplete="off">
             </div>
             <div>
                 <label for="book-author"></label>
-                <input type="text" id="book-author" name="book_author" placeholder="Author">
+                <input type="text" id="book-author" name="book_author" placeholder="Author" autocomplete="off">
             </div>
             <div>
                 <label for="book-pages"></label>
-                <input type="number" id="book-pages" name="book_pages" placeholder="Number of pages">
+                <input type="number" id="book-pages" name="book_pages" placeholder="Number of pages" autocomplete="off">
             </div>
             <div>
                 <label for="book-pages-read"></label>
-                <input type="number" id="book-pages-read" name="book_pages_read" placeholder="# of pages read">
+                <input type="number" id="book-pages-read" name="book_pages_read" placeholder="# of pages read" autocomplete="off">
             </div>
             <div>
                 <label for="book-read">I finished the book!</label>
-                <input type="checkbox" id="book-read" name="book-read" value="true">
+                <input type="checkbox" id="book-read" name="book-read" value="true" autocomplete="off">
             </div>
             <div>
                 <button class="update-book" type="button">Update</button>
@@ -59,6 +59,13 @@
 
             
         </form>
+    </div>
+    <div class="confirm-form">
+        <div>Are you sure you want to delete ALL of your books?</div>
+        <div class="confirm-buttons">
+            <button class="confirm-delete">Confirm</button>
+            <button class="cancel-delete">Cancel</button>
+        </div>
     </div>
 </body>
 </html>
