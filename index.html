@@ -14,9 +14,8 @@
         <div class="header">
             <nav class="nav-bar">
                 <ul class="nav-list">
-                    <li class="logo"><h1>Joseph Knibb</h1><p>High School Library</p></li>
-                    <li class="quote">Reading... is... goooood</li>
-                    <li><a><h1>Login</h1></a></li>
+                    <li class="logo"><h1>Joseph Knibb</h1><p>High School Library App</p></li>
+                    <li class="quote">"Reading... is... goooood"</li>
                 </ul>
             </nav>
         </div>
@@ -29,27 +28,27 @@
         </div> 
     </div>
     <div class="book-form">
-        <form>
-            <div>Fill out the form below</div>
+        <form autocomplete="off">
+            <h2>Add Book</h2>
             <div>
-                <label for="book-title"></label>
-                <input type="text" id="book-title" name="book_title" placeholder="Title of book" autocomplete="off">
+                <label for="book-title">Title</label>
+                <input type="text" id="book-title" name="book_title" required>
             </div>
             <div>
-                <label for="book-author"></label>
-                <input type="text" id="book-author" name="book_author" placeholder="Author" autocomplete="off">
+                <label for="book-author">Author</label>
+                <input type="text" id="book-author" name="book_author" required>
             </div>
             <div>
-                <label for="book-pages"></label>
-                <input type="number" id="book-pages" name="book_pages" placeholder="Number of pages" autocomplete="off">
+                <label for="book-pages">Number of pages</label>
+                <input type="number" id="book-pages" name="book_pages" required>
             </div>
             <div>
-                <label for="book-pages-read"></label>
-                <input type="number" id="book-pages-read" name="book_pages_read" placeholder="# of pages read" autocomplete="off">
+                <label for="book-pages-read">Pages read</label>
+                <input type="number" id="book-pages-read" name="book_pages_read">
             </div>
             <div>
                 <label for="book-read">I finished the book!</label>
-                <input type="checkbox" id="book-read" name="book-read" value="true" autocomplete="off">
+                <input type="checkbox" id="book-read" name="book-read" value="true">
             </div>
             <div>
                 <button class="update-book" type="button">Update</button>
@@ -61,7 +60,7 @@
         </form>
     </div>
     <div class="confirm-form">
-        <div>Are you sure you want to delete ALL of your books?</div>
+        <h2>Are you sure you want to delete ALL of your books?</h2>
         <div class="confirm-buttons">
             <button class="confirm-delete">Confirm</button>
             <button class="cancel-delete">Cancel</button>

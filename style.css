@@ -1,3 +1,47 @@
+@media screen and (min-width:481px) {
+    body {
+        background-color: black;
+    }
+    body .container {
+        display: grid;
+        grid-template:15rem 1fr / 1fr 4fr;
+        grid-template-areas: 
+        "header header"
+        "sidebar main";
+        max-width: 800px;
+        border-left: 4px solid rgb(128, 128, 128);
+        border-right: 4px solid rgb(128, 128, 128);
+    }
+    body .nav-list{
+        padding: 3rem 2rem 0rem 2rem;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    body .sidebar{
+        position: relative;
+        right: 0rem;
+        background-color: rgb(231, 150, 118);
+        grid-area: sidebar;
+    }
+    body .sidebar button{
+        margin: 3rem 1rem;
+        font-size: 24px;
+        width: 14rem;
+        min-height: 4rem;
+    }
+    body .book-form {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: fit-content;
+        height:fit-content;
+        border: 0.5rem solid rgb(97, 96, 96);
+        border-radius: 2rem;
+    }
+}
+
+
 html, body {
     box-sizing: border-box;
     margin: 0;
@@ -6,18 +50,16 @@ html, body {
 }
 
 body {
-    background-color: 
-    black;
+    background-color: gainsboro;
 }
 
 input[type='text'],
 input[type='number'] {
-    height: 2rem;
-    width: 12rem;
+    min-height: 2rem;
+    width: 14rem;
     border: 2px solid rgb(0,0,0,0.2);
     border-radius: 0.5rem;
-    margin: 1rem;
-    font-size: 20px;
+    font-size: 18px;
 }
 input[type='text']:focus,
 input[type='number']:focus {
@@ -41,30 +83,14 @@ input[type='number']:focus {
 
 .container {
     height: 100vh;
-    width: 80vw;
+    width: 100vw;
     margin: 0 auto;
-    display: grid;
-    grid-template:15rem 1fr / 1fr 4fr;
-    grid-template-areas: 
-        "header header"
-        "sidebar main";
 }
 
 ul, li {
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-li a {
-    text-decoration: none;
-    display: block;
-    color: inherit;
-    transition-duration: 0.3s;
-}
-li a:hover {
-    transform: scale(1.2);
-    color: rgb(255, 187, 0)
 }
 
 .header {
@@ -88,8 +114,8 @@ li a:hover {
 
 .nav-list {
     display: flex;
-    justify-content: space-between;
-    padding: 3rem 2rem 0rem 2rem;
+    flex-direction: column;
+    text-align: center;
 }
 .logo h1 {
     font-size: 40px;;
@@ -105,28 +131,28 @@ li a:hover {
 }
 .quote {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 44px;
+    font-size: 16px;
     color:antiquewhite;
-    width: 46rem;
-    text-align: left;
-    padding: 3rem;
+    text-align: center;
+    padding: 2rem;
 }
 .sidebar {
-    background-color: rgb(231, 150, 118);
-    grid-area: sidebar;
+    position: absolute;
+    right: 1rem;
+
 }
 .sidebar button {
     display:block;
-    margin: 3rem auto;
-    font-size: 24px;
-    text-align: center;
-    width: 15rem;
-    height: 4rem;
     border: none;
-    border-radius: 20px;
-    box-shadow: 1px 1px 8px rgb(77, 76, 76);
-    opacity: 0.7;
+    background-color: rgb(158, 27, 27);
+    color: white;
     transition: 0.2s;
+    box-shadow: 1px 1px 8px rgb(77, 76, 76);
+    border-radius: 20px;
+    text-align: center;
+    font-size: 16px;
+    padding: 0.5rem;
+    
 }
 .sidebar button:hover{
     transform: translateY(-3px);
@@ -138,22 +164,25 @@ li a:hover {
     grid-area: main;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0
 }
 .main .book-list{
     display:grid;
-    padding: 2rem;
+    padding: 3rem 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: 1rem;
 }
 .add-book {
     background-color: rgb(228, 222, 222);
     background-image: url(images/add.svg);
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
     color: black;
-    width: 16rem;
-    height: 18rem;
+    width: 8rem;
+    height: 10rem;
     border:10px dashed black;
     border-radius: 2rem;
     display: flex;
@@ -161,8 +190,6 @@ li a:hover {
     opacity: 0.3;
     transition-duration: 0.3s
 }
-
-
 .add-book:hover {
     opacity: 0.6;
 }
@@ -170,7 +197,7 @@ li a:hover {
     content: 'Click to add a new book';
     color: black;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     padding: 10px;
     width: 10rem;
@@ -178,8 +205,8 @@ li a:hover {
     border: 1px solid black;
     border-radius: 10px;
     position: absolute;
-    left: 9rem;
-    bottom: 9rem;
+    left: 6rem;
+    bottom: 6rem;
     opacity: 0;
     transition-duration: 0.3s;
 }
@@ -188,115 +215,157 @@ li a:hover {
 }
 
 .book-card {
-    height: 17rem;
-    width: 14rem;
-    padding: 1rem;
+    height: 10rem;
+    width: 7rem;
+    padding: 0.5rem;
     background-color: rgb(240, 160, 104);
     border-radius: 1rem;
     border-left: 1rem solid rgb(109, 62, 62);
     box-shadow: 0.5rem 0.5rem 10px rgb(153, 153, 153);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    position: relative;
 }
 .book-card > div {
-    text-align: center;
-    padding: 0.5rem;
-    height: 1.5rem;
+    font-size: 12px;
+    text-align: left;
+    padding: 0.25rem;
 }
 
 .book-card > div:first-child {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
+    padding-left: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgb(109, 62, 62);
+    margin-bottom: 0.5rem;
+    min-width: 90%;
 }
+.book-card > div:nth-child(4) {
+    font-size: 8px;
+    flex: 1;
+}
+
 .book-card .read-button {
-    width: 10rem;
-    height: 1.2rem;
+    position: absolute;
+    top: 70%;
+    left: -0.5rem;
+    font-size: 10px;
+    letter-spacing: 0.25rem;
+    transform-origin: center left;
+    transform: rotate(-90deg);
     color: rgb(235, 215, 151);
+    background-color: transparent;
     font-weight: 700;
-    text-align: center;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px 0px rgb(92, 91, 91);
-    position: relative;
     transition-duration: 0.2s
 }
 .book-card .read-button:hover {
-    transform: scale(1.05);
+    background-color: brown;
 }
 .book-card .read-button:hover::after {
     content: 'click to toggle read status';
+    
     position: absolute;
-    left: 8rem;
-    top: -3rem;
+    left: 1rem;
+    top: 3rem;
+    transform: rotate(90deg);
     width: 6rem;
     padding: 10px;
     background-color: white;
     color: rgb(63, 63, 63);
     font-size: 14px;
+    letter-spacing: normal;
     font-weight: 100;
     border: 1px solid rgb(107, 105, 105);
     border-radius: 10px;
+
 }
-.book-card .read{
+
+.book-card .read:hover{
     background-color: rgb(77, 153, 77);
 }
-.book-card .not-read {
+.book-card .not-read:hover {
     background-color: rgb(197, 79, 79);
 }
 
-.book-card button {
+.book-card > div:last-child {
+    display: flex;
+    gap:0.25rem;
+}
+.book-card>div>button {
     background-color: rgb(248, 73, 73);
-    height: 2rem;
-    width: 5rem;
-    margin: 10px 8px 0px 8px;
+    opacity: 0.7;
     color: white;
+    font-size: 12px;
+    padding: 0.25rem;
+    min-width: 3rem;
     font-weight: 700;
     border: none;
     border-radius: 10px;
     box-shadow: 2px 2px 5px 0px rgb(92, 91, 91);
     transition-duration: 0.2s;
 }
-.book-card button:hover {
-    background-color: rgba(211, 3, 83, 0.925);
+.book-card>div>button.book-card-edit{
+    background-color: rgb(45, 148, 45);
+}
+.book-card>div>button:hover {
+    opacity: 1;
     transform: scale(1.05);
 }
 
 .book-form {
     display: none;
     background-color: rgb(219, 216, 216);
-    border: 0.5rem solid rgb(97, 96, 96);
-    border-radius: 2rem;
-    padding: 1rem;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 1000;
-    height: 35rem;
-    width: 20rem;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
 }
 .book-form > form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 2rem;
 }
-.book-form > form > div {
-    height: 4rem;
-    width: 13rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.book-form > form > div:first-child {
-    font-size: 18px;
+.book-form>form>h2{
+    font-size: 32px;
+    margin: 2rem;
     font-weight: 700;
 }
+.book-form > form > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    /*
+    body .book-form > form > div {
+        flex-direction:row;
+    }
+    */
+    
+}
 .book-form > form > div:nth-child(6) {
-    font-size: 20px;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 13rem;
+    padding: 1rem;
 }
 .book-form > form > div:last-child {
     display: flex;
+    flex-direction: row;
     justify-content: space-evenly;
+    gap: 2rem;
+}
+.book-form>form>div>label {
+    font-size: 18px;
+    margin: 0.5rem 0;
 }
 .book-form button {
     height: 3rem;
@@ -336,4 +405,34 @@ li a:hover {
     z-index: 1000;
     height: 10rem;
     width: 20rem;
+}
+.confirm-form h2{
+    padding:10px;
+    margin: 20px auto;
+    font-size: 18px;
+}
+.confirm-buttons{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.confirm-form button {
+    height: 3rem;
+    width: 6rem;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius:  18px;
+    background-color: rgb(248, 73, 73);
+    opacity: 0.7;
+    box-shadow: 1px 1px 5px rgb(77, 76, 76);
+    transition-duration: 200ms;
+}
+.confirm-form button.confirm-delete{
+    background-color: green;
+
+}
+.confirm-form button:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }

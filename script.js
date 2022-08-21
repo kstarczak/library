@@ -4,6 +4,7 @@
 let myLibrary = [];
 let currentBook;
 
+
 const bookList = document.querySelector('.book-list');
 const submitBookButton = document.querySelector('.submit-book');
 const cancelBookButton = document.querySelector('.cancel-book');
@@ -19,7 +20,7 @@ const bookReadInput = document.querySelector('#book-read');
 const bookPagesReadInput = document.querySelector('#book-pages-read');
 
 
-// book constructer
+// book constructor
 function Book (title, author, pages, pagesRead, read) {
     this.title = title
     this.author = author
@@ -40,13 +41,16 @@ Book.prototype.toggleRead = function () {
 // add object to library and call display function
 function addBook(book) {
     myLibrary.push(book);
+    localStorage.setItem('localLibrary', JSON.stringify(myLibrary));
+    console.log(JSON.parse(localStorage.getItem('myLibrary')));
     clearBooks();
     displayBooks();
 }
 
 function deleteBook() {
     const libraryPosition = parseInt(this.parentNode.dataset.indexNumber);
-    myLibrary. splice(libraryPosition, 1);
+    myLibrary.splice(libraryPosition, 1);
+    localStorage.setItem('localLibrary', JSON.stringify(myLibrary));
     clearBooks();
     displayBooks();
 }
@@ -70,14 +74,12 @@ function switchButtons() {
 }
 
 function submitEdit() {
-    console.log(`Book title before edit: ${currentBook.title}, input before edit: ${bookTitleInput.value}`);
     currentBook.title = bookTitleInput.value;
-    console.log(`Book title AFTER edit: ${currentBook.title}`);
     currentBook.author = bookAuthorInput.value;
     currentBook.pages = bookPagesInput.value;
     currentBook.pagesRead = bookPagesReadInput.value;
     currentBook.read = bookReadInput.checked;
-    console.log(currentBook);
+    localStorage.setItem('localLibrary', JSON.stringify(myLibrary));
     submitBookButton.style.display = 'block';
     updateBookButton.style.display = 'none';
     closeForm();
@@ -135,10 +137,10 @@ function createBookCard(book, i) {
         newBookAuthor.textContent = `By: ${book.author}`;
         
         const newBookPages = document.createElement('div');
-        newBookPages.textContent = `${book.pages} pages`;
+        newBookPages.textContent = `${book.pages} pg.`;
 
         const newBookPagesRead = document.createElement('div')
-        if (book.pagesRead) newBookPagesRead.textContent = `You've read ${book.pagesRead} pages`;
+        if (book.pagesRead) newBookPagesRead.textContent = `You've read ${book.pagesRead} pages.`;
         
         const newBookRead = document.createElement('div');
         newBookRead.classList.add('read-button');
@@ -210,8 +212,6 @@ function submitBook() {
     addBook(newBook);
 }
 
-displayAddItems();
-
 submitBookButton.addEventListener('click', submitBook);
 
 cancelBookButton.addEventListener('click', closeForm);
@@ -221,6 +221,15 @@ clearButton.addEventListener('click', openConfirm);
 confirmDeleteButton.addEventListener('click', function() {closeConfirm(); clearAll();});
 
 confirmCancelButton.addEventListener('click', closeConfirm);
+
+// Display books saved in localstorage
+window.addEventListener('load', ()=> {
+    if (localStorage.getItem('localLibrary')) {
+        myLibrary = JSON.parse(localStorage.getItem('localLibrary'));
+    };
+    displayBooks();
+})
+
 
 
 /* temporary button to clear the visual book list
