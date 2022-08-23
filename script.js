@@ -27,8 +27,19 @@ function Book (title, author, pages, pagesRead, read) {
     this.pages = pages
     this.pagesRead = pagesRead
     this.read = read.checked
+    this.toggleRead = function() {
+        if (this.read) {
+            this.read = false;
+            this.pagesRead = 0;
+        } else {
+            this.read = true;
+            this.pagesRead = 'all';
+        };
+    }
 };
 
+/*
+Prototype removed and added to contructor since as adding library to localstorage removed the prototype (could alternatively re-add prototype when JSON.parse called)
 Book.prototype.toggleRead = function () {
     if (this.read) {
         this.read = false;
@@ -37,6 +48,7 @@ Book.prototype.toggleRead = function () {
         this.pagesRead = 0;
     };
 };
+*/
 
 // add object to library and call display function
 function addBook(book) {
@@ -90,8 +102,8 @@ function submitEdit() {
 function toggleReadStatus() {
     const libraryPosition = parseInt(this.parentNode.dataset.indexNumber);
     currentBook = myLibrary[libraryPosition];
+    console.log(currentBook);
     currentBook.toggleRead();
-    console.log();
     clearBooks();
     displayBooks();
 }
@@ -119,6 +131,7 @@ function clearBooks() {
 }
 function clearAll() {
     myLibrary = [];
+    localStorage.setItem('localLibrary', JSON.stringify(myLibrary));
     clearBooks();
     displayAddItems();
 }
@@ -140,8 +153,13 @@ function createBookCard(book, i) {
         newBookPages.textContent = `${book.pages} pg.`;
 
         const newBookPagesRead = document.createElement('div')
-        if (book.pagesRead) newBookPagesRead.textContent = `You've read ${book.pagesRead} pages.`;
-        
+        if (!book.pagesRead) {
+            newBookPagesRead.textContent = "You've read 0 pages.";
+        } else if (book.pagesRead === 'all') {
+            newBookPagesRead.textContent = "You've read this book.";
+        } else {
+            newBookPagesRead.textContent = `You've read ${book.pagesRead} pages.`;
+        }
         const newBookRead = document.createElement('div');
         newBookRead.classList.add('read-button');
         newBookRead.addEventListener('click', toggleReadStatus);
@@ -201,15 +219,33 @@ function closeForm() {
     bookPagesInput.value = null;
     bookPagesReadInput.value = null;
     bookReadInput.checked = false;
+    const invalidMessage = document.querySelector('.invalid-message');
+    invalidMessage.textContent = "";
 }
 
 
 
 function submitBook() {
-    const newBook = new Book(bookTitleInput.value, bookAuthorInput.value, bookPagesInput.value, bookPagesReadInput.value, bookReadInput);
-   
-    closeForm();
-    addBook(newBook);
+    const invalidMessage = document.querySelector('.invalid-message');
+    if (!bookTitleInput.value ||!bookAuthorInput.value || !bookPagesInput.value) {  
+        invalidMessage.textContent = "You must complete the first 3 fields to add a book!"
+    }
+    else if (parseInt(bookPagesReadInput.value) > parseInt(bookPagesInput.value)) {
+        invalidMessage.textContent = "Pages read cannot be greater than total pages!";
+    }
+    else {
+        if (bookReadInput) {
+            const newBook = new Book(bookTitleInput.value, bookAuthorInput.value, bookPagesInput.value, "all", bookReadInput);
+            closeForm();
+            addBook(newBook);
+        } else {
+            const newBook = new Book(bookTitleInput.value, bookAuthorInput.value, bookPagesInput.value, bookPagesReadInput, bookReadInput);
+            closeForm();
+            addBook(newBook);
+        }
+        
+        
+    }
 }
 
 submitBookButton.addEventListener('click', submitBook);
