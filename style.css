@@ -91,6 +91,10 @@
     body footer {
         font-size: 18px;
     }
+    body .confirm-form {
+        height: auto;
+        width: 20rem;
+    }
 };
 
 html, body {
@@ -232,7 +236,7 @@ ul, li {
     display:grid;
     padding: 3rem 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
     gap: 1rem;
 }
 .add-book {
@@ -330,9 +334,11 @@ ul, li {
 
 .book-form {
     display: none;
+    justify-content: center;
+    align-items: flex-start;
     background-color: rgb(219, 216, 216);
     z-index: 1000;
-    position: absolute;
+    position: fixed;
     top:0;
     left:0;
     width: 100vw;
@@ -414,6 +420,7 @@ ul, li {
 }
 .confirm-form {
     display: none;
+    flex-direction: column;
     background-color: rgb(219, 216, 216);
     border: 0.5rem solid rgb(97, 96, 96);
     border-radius: 2rem;
@@ -421,9 +428,10 @@ ul, li {
     position: fixed;
     top: 50%;
     left: 50%;
+    height: 100vh;
+    width: 100vw;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    width: 20rem;
 }
 .confirm-form h2{
     padding:10px;

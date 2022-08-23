@@ -136,7 +136,6 @@ function clearAll() {
     displayAddItems();
 }
 
-// add reg expresson check function!!!!!!!!!!!!
 function createBookCard(book, i) {
     if (book) {
         const newBook = document.createElement('div');
@@ -192,12 +191,12 @@ function createBookCard(book, i) {
 
 // open pop-up to input book data
 function openForm() {
-  document.querySelector('.book-form').style.display = 'block';
+  document.querySelector('.book-form').style.display = 'flex';
   document.querySelector('.container-cover').style.display = 'block';
 }
 
 function openConfirm() {
-    document.querySelector('.confirm-form').style.display = 'block';
+    document.querySelector('.confirm-form').style.display = 'flex';
     document.querySelector('.container-cover').style.display = 'block';
 }
 
