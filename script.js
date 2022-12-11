@@ -227,7 +227,7 @@ function closeForm() {
 function submitBook() {
     const invalidMessage = document.querySelector('.invalid-message');
     if (!bookTitleInput.value ||!bookAuthorInput.value || !bookPagesInput.value) {  
-        invalidMessage.textContent = "You must complete the first 3 fields to add a book!"
+        invalidMessage.textContent = "Complete the first 3 fields to add a book!"
     }
     else if (parseInt(bookPagesReadInput.value) > parseInt(bookPagesInput.value)) {
         invalidMessage.textContent = "Pages read cannot be greater than total pages!";
